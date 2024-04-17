@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <link rel="stylesheet" type="text/css" href="reservation.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <title>RailX</title>
+    </head>
+    <body>
+
+
+        <div id="train_card_cu">
+        
+        <div class="train_card">
+            <div class="Train Number"> ${data.train_no} ${data.train_type}</div>
+            <div class="city_name"><div class="city_names_indata_base"> ${data.starting_city}  ${data.starting_city_station}</div> To <div class="city_names_indata_base">${data.ending_city} ${data.ending_city_station}</div>
+        
+            <div class="Distance:">${data.distance}</div>
+            <div class="Starting Time"> ${data.starting_time}</div>
+            <div class="Ending Time"> ${data.ending_time}</div>
+            <div class="Departs On"> ${data.departs_on.join(', ')}</div>
+            <div class="Classes">${Object.entries(data.classes).map(([key, value]) => `${key}: ${value}`).join(', ')}</div>
+        </div>
+
+        </div>
+
+
+<script src="home.js"></script>
+</body>
+</html>
