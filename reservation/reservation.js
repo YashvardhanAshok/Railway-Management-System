@@ -243,11 +243,16 @@ button.addEventListener("click", function() {
 
 // #region surch
 function Search(){
-// udate_the_name
+  // udate_the_name
   document.getElementById('cityNamesDataBase1').innerHTML = `${citySelect_1.value}<p>${city_station_1.value}</p>`;
   document.getElementById('cityNamesDataBase2').innerHTML = `${citySelect_2.value}<p>${city_station_2.value}</p>`;
 
-
+  // filter_date
+  const date = new Date(document.getElementById('date_option').value);
+  const weekdays  = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dayOfWeek = date.getDay();
+  const dayName = weekdays[dayOfWeek];
+  // console.log(dayName);
 
 
   //class price
@@ -278,6 +283,8 @@ function Search(){
         const Train_class = objectToDiv(data.classes,data);
 
         // filter 
+
+        
         if (citySelect_1.value!= data.starting_city || city_station_1.value!=data.starting_city_station
           ||citySelect_2.value!= data.ending_city || city_station_2.value!=data.ending_city_station) {
             return;
