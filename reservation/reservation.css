@@ -1004,13 +1004,14 @@ transition: 0.2s ease-in-out;
 
 .price_cell{
   position: relative;
-  height: 80px;
-  width: 100px;
+  height: 110px;
+  min-width: 200px;
   padding: 10px;
 
   box-shadow: rgba(0, 0, 0, 0.236) 0 0 20px ;
   border-radius: 10px;
   transition: 0.1s ease-in-out;
+  padding: 0 20px;
 }
 
 .price_cell:hover{
@@ -1018,14 +1019,23 @@ transition: 0.2s ease-in-out;
   background-color: #0083ca2e;
 }
 
+a{text-decoration: none;}
+
 .price,.name_of_class{
-position:  absolute;
 width: 100%;
 text-align: center;
 font-weight: bolder;
 bottom: 0;
 left: 0;
-padding: 20px 0;
+font-size: 20px;
+}
+
+.name_of_class{
+  padding-top: 25px;
+}
+.price{
+  padding-bottom: 0px;
+
 }
 
 .name_of_class{

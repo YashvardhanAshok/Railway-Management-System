@@ -71,7 +71,7 @@ for (let i = 0; i <= 11; i++) {
               <label for="date${i}" >${getFormattedDate(nextDay)} </label>`
 }
 document.getElementById('date-selector').innerHTML =date_sring ; 
-document.getElementById('date1').checked = true;
+document.getElementById('date0').checked = true;
 
 // events
 function change_date(selectedDate,pointer_add) {
@@ -110,14 +110,20 @@ function change_date(selectedDate,pointer_add) {
 
 document.querySelectorAll('.date_inside_layout').forEach(input => {
     input.addEventListener('click', function() {
-        // const selectedDate = this.value;
         console.log(this.value);
-        // const namePropertyValue  = this.id;
-        // console.log(namePropertyValue);
-        // if (namePropertyValue == 'date9') {
-        //   document.getElementById('date-selector').innerHTML = change_date(selectedDate); 
-        //   document.getElementById('date1').checked = true;
-        // }
+        var currentDate = new Date(); // Get current date
+        var currentYear = currentDate.getFullYear(); // Get current year
+        
+        // Parse the provided date string "Mon, Apr 29"
+        var inputDateString =  `"${this.value} ` + currentYear;
+        var inputDate = new Date(inputDateString);
+        
+        // Format the date to YYYY-MM-DD required by <input type="date">
+        var formattedDate = inputDate.toISOString().slice(0, 10);
+        document.getElementById("date_option").value = formattedDate;
+        
+        Search();
+        
     });
 });
 // next
@@ -223,12 +229,9 @@ fetch(filePath2)
       city_station_2.innerHTML = station_options_name(selectedCity);
       // document.getElementById('cityNamesDataBase2').innerHTML = `${citySelect_2.value}<p>${city_station_2.value}</p>`;
 });
- 
-    
-
-})
-.catch(error => {
-  console.error('Error fetching JSON:', error);
+  })
+  .catch(error => {
+    console.error('Error fetching JSON:', error);
 });
 
 
@@ -241,73 +244,216 @@ button.addEventListener("click", function() {
   Search();
 });
 
-// #region surch
+
+
+
+// train random
+function trin_detil() {
+
+    // waek
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+    function getRandomWeekSubset() {
+      const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      shuffleArray(daysOfWeek); // Shuffle the array of days
+    
+      const subsetLength = Math.floor(Math.random() * (daysOfWeek.length + 1)); // Random number of days
+      const subset = daysOfWeek.slice(0, subsetLength); // Select a subset of days
+    
+      return subset;
+    }
+    const departs_on_befor = getRandomWeekSubset();
+
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const date = new Date(document.getElementById("date_option").value);
+    const dayOfWeekfilter = daysOfWeek[date.getDay()];
+
+    if (departs_on_befor.includes(dayOfWeekfilter)) {} 
+    else {return "";}
+
+    // index for weeek
+    const array_for_weeek_index=[]
+    for (let i = 0; i < departs_on_befor.length; i++) {
+        const index = daysOfWeek.indexOf(departs_on_befor[i]);
+        array_for_weeek_index.push(index);
+    }
+    console.log(array_for_weeek_index);
+    const w_array_1=["S","M","T","W","T","F","S"];
+    const w_array_2=["<b>S</B>","<b>M</B>","<b>T</B>","<b>W</B>","<b>T</B>","<b>F</B>","<b>S</B>"];
+
+    const departs_on=departs_on_befor.join(' ');
+
+
+    // train no
+    const train_no = Math.floor(1000 + Math.random() * 9000);;
+  
+
+  
+    // get the train time  
+    function getRandomTime12h() {
+      const padZero = (num) => (num < 10 ? `0${num}` : num); 
+    
+      const randomHour = Math.floor(Math.random() * 12) + 1; 
+      const randomMinute = Math.floor(Math.random() * 60);
+    
+      const hourString = padZero(randomHour);
+      const minuteString = padZero(randomMinute);
+    
+      const amOrPm = Math.random() < 0.5 ? "AM" : "PM"; 
+    
+      return `${hourString}:${minuteString} ${amOrPm}`; 
+    }
+    const starting_time  = getRandomTime12h();
+    const ending_time = getRandomTime12h();
+   
+  // total_time_taken
+  function getRandomTimeDuration() {
+    // Generate random hours between 6 and 23 (inclusive)
+    const randomHours = Math.floor(Math.random() * (24 - 6)) + 6;
+    const randomMinutes = Math.floor(Math.random() * 60);
+
+    let durationString = `${randomHours}h ${randomMinutes}m`;
+    return durationString; 
+  }  
+
+  const total_time_taken = getRandomTimeDuration();
+    
+    //distance 
+    const distance =Math.floor(Math.random() * (2000 - 985 + 1)) + 985 + " kms";
+  
+    // class and train type
+    const trainClasses = {
+      "Rajdhani Express": [
+          ["First AC", 4000],
+          ["AC 2 Tier", 3000],
+          ["AC 3 Tier", 2000]
+      ],
+      "Shatabdi Express": [
+          ["Executive Chair Car", 2500],
+          ["Chair Car", 1500]
+      ],
+      "Duronto Express": [
+          ["First AC", 3500],
+          ["AC 2 Tier", 2800],
+          ["AC 3 Tier", 1800],
+          ["Sleeper Class", 1000]
+      ],
+      "Gatimaan Express": [
+          ["Chair Car", 1200]
+      ],
+      "Tejas Express": [
+          ["Executive Chair Car", 3000],
+          ["Chair Car", 2000]
+      ],
+      "Humsafar Express": [
+          ["AC 3 Tier", 1500]
+      ],
+      "Garib Rath Express": [
+          ["AC 3 Tier", 1000]
+      ],
+      "Sampark Kranti Express": [
+          ["AC 2 Tier", 2500],
+          ["AC 3 Tier", 1800],
+          ["Sleeper Class", 900]
+      ],
+      "Jan Shatabdi Express": [
+          ["AC Chair Car", 1800],
+          ["Second Seating (2S)", 500]
+      ],
+      "Vande Bharat Express": [
+          ["Executive Chair Car", 3500],
+          ["Chair Car", 2500]
+      ],
+      "Palace on Wheels": [
+          ["Luxury Tourist Train", 10000]
+      ],
+      "Deccan Odyssey": [
+          ["Luxury Tourist Train", 12000]
+      ],
+      "Golden Chariot": [
+          ["Luxury Tourist Train", 9000]
+      ],
+      "Maharajas' Express": [
+          ["Luxury Tourist Train", 15000]
+      ],
+      "Himalayan Queen": [
+          ["Chair Car", 800]
+      ],
+      "Fairy Queen": [
+          ["First Class", 2000]
+      ],
+      "Kalka Mail": [
+          ["First AC", 3500],
+          ["AC 2 Tier", 2800],
+          ["AC 3 Tier", 1800],
+          ["Sleeper Class", 1000]
+      ],
+      "Howrah Mail": [
+          ["AC 2 Tier", 2500],
+          ["AC 3 Tier", 1800],
+          ["Sleeper Class", 900]
+      ],
+      "Punjab Mail": [
+          ["AC 2 Tier", 2500],
+          ["AC 3 Tier", 1800],
+          ["Sleeper Class", 900]
+      ],
+      "Grand Trunk Express": [
+          ["First AC", 3500],
+          ["AC 2 Tier", 2800],
+          ["AC 3 Tier", 1800],
+          ["Sleeper Class", 1000]
+      ]
+    };
+    // train_type
+    const train_type = Object.keys(trainClasses)[Math.floor(Math.random() * Object.keys(trainClasses).length)];
+    
+    let html ="";
+    for (let [className, fare] of trainClasses[train_type]) {
+      html += `
+      <a href="../pay/pay.html?${citySelect_1.value}&${city_station_1.value}&${citySelect_2.value}&${city_station_2.value}&${train_no}&${departs_on}&${train_type}&${starting_time}&${total_time_taken}&${distance}&${ending_time}&${className}&${fare}">
+        <div class="price_cell">
+          <div class="name_of_class">${className}</div>
+          <div class="price">Rs. ${fare}</div>
+        </div>
+      </a>`;
+    }
+    const Train_class = html;
+    const a= `
+             <div class="train_card">
+             <div class="Train_det">
+                <div class="Train_name_no"><div class="Departs_On">${train_no} | ${departs_on} </div>${train_type}</div> 
+                <div class="Time_in_card"> ${starting_time} <div class="Distance">${total_time_taken} <br>${distance}</div> ${ending_time}</div>
+             </div>
+                <div class="train_Classes">${Train_class}</div>
+             </div>`;
+    return a;
+}
+
+
+
 function Search(){
-  // udate_the_name
   document.getElementById('cityNamesDataBase1').innerHTML = `${citySelect_1.value}<p>${city_station_1.value}</p>`;
   document.getElementById('cityNamesDataBase2').innerHTML = `${citySelect_2.value}<p>${city_station_2.value}</p>`;
-
-  // filter_date
   const date = new Date(document.getElementById('date_option').value);
   const weekdays  = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const dayOfWeek = date.getDay();
+  // surch date
   const dayName = weekdays[dayOfWeek];
-  // console.log(dayName);
 
-
-  //class price
-  function objectToDiv(obj,data) {
-    let html = '';
-    for (const key in obj) {
-        const value = obj[key];
-        const className = key.replace('_price', '');
-        if (value !== "") {
-            html += `<a href="../pay/pay.html?${citySelect_1.value}&${city_station_1.value}&${citySelect_2.value}&${city_station_2.value}&${data.train_no}&${data.departs_on}&${data.train_type}&${data.starting_time}&${data.total_time_taken}&${data.distance}&${data.ending_time}&${className}&${value}"><div class="price_cell"><div class="name_of_class">${className}</div><div class="price">${value}</div></div></a>`;
-        }
-    }
-    return html;
+  var a = "";  
+  for (let i = 0; i < 60; i++) {
+    a += trin_detil();
   }
 
-  // main_card
-  const filePath = '../data_base/data_base.json';
-  var a = "";
-  fetch(filePath)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(jsonData => {
-      jsonData.forEach((data, index) => {
-        const Train_class = objectToDiv(data.classes,data);
+  document.getElementById("train_card_cu").innerHTML = a;
 
-        // filter 
-
-        
-        if (citySelect_1.value!= data.starting_city || city_station_1.value!=data.starting_city_station
-          ||citySelect_2.value!= data.ending_city || city_station_2.value!=data.ending_city_station) {
-            return;
-        }
-
-
-        a += `
-          <div class="train_card">
-          <div class="Train_det">
-            <div class="Train_name_no"><div class="Departs_On">${data.train_no} | ${data.departs_on} </div>${data.train_type}</div> 
-            <div class="Time_in_card"> ${data.starting_time} <div class="Distance">${data.total_time_taken} <br>${data.distance}</div> ${data.ending_time}</div>
-          </div>
-          <div class="train_Classes">${Train_class}</div>
-          </div>
-              `;
-      });
-      // display
-      document.getElementById("train_card_cu").innerHTML = a;
-    })
-    .catch(error => {
-      console.error('Error fetching the file:', error);
-    });
-  }
+}
 
 
 
@@ -324,3 +470,379 @@ radioButtons.forEach(radioButton => {
         }
     });
 });
+
+
+// #region remove
+function demo() {
+
+  // waek
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+  function getRandomWeekSubset() {
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    shuffleArray(daysOfWeek); // Shuffle the array of days
+  
+    const subsetLength = Math.floor(Math.random() * (daysOfWeek.length + 1)); // Random number of days
+    const subset = daysOfWeek.slice(0, subsetLength); // Select a subset of days
+  
+    return subset;
+  }
+  const departs_on_befor = getRandomWeekSubset();
+
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const date = new Date(document.getElementById("date_option").value);
+  const dayOfWeekfilter = daysOfWeek[date.getDay()];
+
+  if (departs_on_befor.includes(dayOfWeekfilter)) {} 
+  else {return "";}
+
+  // index for weeek
+  const array_for_weeek_index=[]
+  for (let i = 0; i < departs_on_befor.length; i++) {
+      const index = daysOfWeek.indexOf(departs_on_befor[i]);
+      array_for_weeek_index.push(index);
+  }
+  console.log(array_for_weeek_index);
+  const w_array_1=["S","M","T","W","T","F","S"];
+  const w_array_2=["<b>S</B>","<b>M</B>","<b>T</B>","<b>W</B>","<b>T</B>","<b>F</B>","<b>S</B>"];
+
+  const departs_on=departs_on_befor.join(' ');
+
+
+  // train no
+  const train_no = Math.floor(1000 + Math.random() * 9000);;
+
+
+
+  // get the train time  
+  function getRandomTime12h() {
+    const padZero = (num) => (num < 10 ? `0${num}` : num); 
+  
+    const randomHour = Math.floor(Math.random() * 12) + 1; 
+    const randomMinute = Math.floor(Math.random() * 60);
+  
+    const hourString = padZero(randomHour);
+    const minuteString = padZero(randomMinute);
+  
+    const amOrPm = Math.random() < 0.5 ? "AM" : "PM"; 
+  
+    return `${hourString}:${minuteString} ${amOrPm}`; 
+  }
+  const starting_time  = getRandomTime12h();
+  const ending_time = getRandomTime12h();
+ 
+// total_time_taken
+function getRandomTimeDuration() {
+  // Generate random hours between 6 and 23 (inclusive)
+  const randomHours = Math.floor(Math.random() * (24 - 6)) + 6;
+  const randomMinutes = Math.floor(Math.random() * 60);
+
+  let durationString = `${randomHours}h ${randomMinutes}m`;
+  return durationString; 
+}  
+
+const total_time_taken = getRandomTimeDuration();
+  
+  //distance 
+  const distance =Math.floor(Math.random() * (2000 - 985 + 1)) + 985 + " kms";
+
+  // class and train type
+  const trainClasses = {
+    "Rajdhani Express": [
+        ["First AC", 4000],
+        ["AC 2 Tier", 3000],
+        ["AC 3 Tier", 2000]
+    ],
+    "Shatabdi Express": [
+        ["Executive Chair Car", 2500],
+        ["Chair Car", 1500]
+    ],
+    "Duronto Express": [
+        ["First AC", 3500],
+        ["AC 2 Tier", 2800],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 1000]
+    ],
+    "Gatimaan Express": [
+        ["Chair Car", 1200]
+    ],
+    "Tejas Express": [
+        ["Executive Chair Car", 3000],
+        ["Chair Car", 2000]
+    ],
+    "Humsafar Express": [
+        ["AC 3 Tier", 1500]
+    ],
+    "Garib Rath Express": [
+        ["AC 3 Tier", 1000]
+    ],
+    "Sampark Kranti Express": [
+        ["AC 2 Tier", 2500],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 900]
+    ],
+    "Jan Shatabdi Express": [
+        ["AC Chair Car", 1800],
+        ["Second Seating (2S)", 500]
+    ],
+    "Vande Bharat Express": [
+        ["Executive Chair Car", 3500],
+        ["Chair Car", 2500]
+    ],
+    "Palace on Wheels": [
+        ["Luxury Tourist Train", 10000]
+    ],
+    "Deccan Odyssey": [
+        ["Luxury Tourist Train", 12000]
+    ],
+    "Golden Chariot": [
+        ["Luxury Tourist Train", 9000]
+    ],
+    "Maharajas' Express": [
+        ["Luxury Tourist Train", 15000]
+    ],
+    "Himalayan Queen": [
+        ["Chair Car", 800]
+    ],
+    "Fairy Queen": [
+        ["First Class", 2000]
+    ],
+    "Kalka Mail": [
+        ["First AC", 3500],
+        ["AC 2 Tier", 2800],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 1000]
+    ],
+    "Howrah Mail": [
+        ["AC 2 Tier", 2500],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 900]
+    ],
+    "Punjab Mail": [
+        ["AC 2 Tier", 2500],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 900]
+    ],
+    "Grand Trunk Express": [
+        ["First AC", 3500],
+        ["AC 2 Tier", 2800],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 1000]
+    ]
+  };
+  // train_type
+  const train_type = Object.keys(trainClasses)[Math.floor(Math.random() * Object.keys(trainClasses).length)];
+  
+  let html ="";
+  for (let [className, fare] of trainClasses[train_type]) {
+    html += `
+    <a href="../pay/pay.html?${citySelect_1.value}&${city_station_1.value}&${citySelect_2.value}&${city_station_2.value}&${train_no}&${departs_on}&${train_type}&${starting_time}&${total_time_taken}&${distance}&${ending_time}&${className}&${fare}">
+      <div class="price_cell">
+        <div class="name_of_class">${className}</div>
+        <div class="price">Rs. ${fare}</div>
+      </div>
+    </a>`;
+  }
+  const Train_class = html;
+  const a= `
+           <div class="train_card">
+           <div class="Train_det">
+              <div class="Train_name_no"><div class="Departs_On">${train_no} | ${departs_on} </div>${train_type}</div> 
+              <div class="Time_in_card"> ${starting_time} <div class="Distance">${total_time_taken} <br>${distance}</div> ${ending_time}</div>
+           </div>
+              <div class="train_Classes">${Train_class}</div>
+           </div>`;
+  return a;
+} 
+
+function demo() {
+
+  // waek
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+  function getRandomWeekSubset() {
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    shuffleArray(daysOfWeek); // Shuffle the array of days
+  
+    const subsetLength = Math.floor(Math.random() * (daysOfWeek.length + 1)); // Random number of days
+    const subset = daysOfWeek.slice(0, subsetLength); // Select a subset of days
+  
+    return subset;
+  }
+  const departs_on_befor = getRandomWeekSubset();
+
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const date = new Date(document.getElementById("date_option").value);
+  const dayOfWeekfilter = daysOfWeek[date.getDay()];
+
+  if (departs_on_befor.includes(dayOfWeekfilter)) {} 
+  else {return "";}
+
+  // index for weeek
+  const array_for_weeek_index=[]
+  for (let i = 0; i < departs_on_befor.length; i++) {
+      const index = daysOfWeek.indexOf(departs_on_befor[i]);
+      array_for_weeek_index.push(index);
+  }
+  console.log(array_for_weeek_index);
+  const w_array_1=["S","M","T","W","T","F","S"];
+  const w_array_2=["<b>S</B>","<b>M</B>","<b>T</B>","<b>W</B>","<b>T</B>","<b>F</B>","<b>S</B>"];
+
+  const departs_on=departs_on_befor.join(' ');
+
+
+  // train no
+  const train_no = Math.floor(1000 + Math.random() * 9000);;
+
+
+
+  // get the train time  
+  function getRandomTime12h() {
+    const padZero = (num) => (num < 10 ? `0${num}` : num); 
+  
+    const randomHour = Math.floor(Math.random() * 12) + 1; 
+    const randomMinute = Math.floor(Math.random() * 60);
+  
+    const hourString = padZero(randomHour);
+    const minuteString = padZero(randomMinute);
+  
+    const amOrPm = Math.random() < 0.5 ? "AM" : "PM"; 
+  
+    return `${hourString}:${minuteString} ${amOrPm}`; 
+  }
+  const starting_time  = getRandomTime12h();
+  const ending_time = getRandomTime12h();
+ 
+// total_time_taken
+function getRandomTimeDuration() {
+  // Generate random hours between 6 and 23 (inclusive)
+  const randomHours = Math.floor(Math.random() * (24 - 6)) + 6;
+  const randomMinutes = Math.floor(Math.random() * 60);
+
+  let durationString = `${randomHours}h ${randomMinutes}m`;
+  return durationString; 
+}  
+
+const total_time_taken = getRandomTimeDuration();
+  
+  //distance 
+  const distance =Math.floor(Math.random() * (2000 - 985 + 1)) + 985 + " kms";
+
+  // class and train type
+  const trainClasses = {
+    "Rajdhani Express": [
+        ["First AC", 4000],
+        ["AC 2 Tier", 3000],
+        ["AC 3 Tier", 2000]
+    ],
+    "Shatabdi Express": [
+        ["Executive Chair Car", 2500],
+        ["Chair Car", 1500]
+    ],
+    "Duronto Express": [
+        ["First AC", 3500],
+        ["AC 2 Tier", 2800],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 1000]
+    ],
+    "Gatimaan Express": [
+        ["Chair Car", 1200]
+    ],
+    "Tejas Express": [
+        ["Executive Chair Car", 3000],
+        ["Chair Car", 2000]
+    ],
+    "Humsafar Express": [
+        ["AC 3 Tier", 1500]
+    ],
+    "Garib Rath Express": [
+        ["AC 3 Tier", 1000]
+    ],
+    "Sampark Kranti Express": [
+        ["AC 2 Tier", 2500],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 900]
+    ],
+    "Jan Shatabdi Express": [
+        ["AC Chair Car", 1800],
+        ["Second Seating (2S)", 500]
+    ],
+    "Vande Bharat Express": [
+        ["Executive Chair Car", 3500],
+        ["Chair Car", 2500]
+    ],
+    "Palace on Wheels": [
+        ["Luxury Tourist Train", 10000]
+    ],
+    "Deccan Odyssey": [
+        ["Luxury Tourist Train", 12000]
+    ],
+    "Golden Chariot": [
+        ["Luxury Tourist Train", 9000]
+    ],
+    "Maharajas' Express": [
+        ["Luxury Tourist Train", 15000]
+    ],
+    "Himalayan Queen": [
+        ["Chair Car", 800]
+    ],
+    "Fairy Queen": [
+        ["First Class", 2000]
+    ],
+    "Kalka Mail": [
+        ["First AC", 3500],
+        ["AC 2 Tier", 2800],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 1000]
+    ],
+    "Howrah Mail": [
+        ["AC 2 Tier", 2500],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 900]
+    ],
+    "Punjab Mail": [
+        ["AC 2 Tier", 2500],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 900]
+    ],
+    "Grand Trunk Express": [
+        ["First AC", 3500],
+        ["AC 2 Tier", 2800],
+        ["AC 3 Tier", 1800],
+        ["Sleeper Class", 1000]
+    ]
+  };
+  // train_type
+  const train_type = Object.keys(trainClasses)[Math.floor(Math.random() * Object.keys(trainClasses).length)];
+  
+  let html ="";
+  for (let [className, fare] of trainClasses[train_type]) {
+    html += `
+    <a href="../pay/pay.html?${citySelect_1.value}&${city_station_1.value}&${citySelect_2.value}&${city_station_2.value}&${train_no}&${departs_on}&${train_type}&${starting_time}&${total_time_taken}&${distance}&${ending_time}&${className}&${fare}">
+      <div class="price_cell">
+        <div class="name_of_class">${className}</div>
+        <div class="price">Rs. ${fare}</div>
+      </div>
+    </a>`;
+  }
+  const Train_class = html;
+  const a= `
+           <div class="train_card">
+           <div class="Train_det">
+              <div class="Train_name_no"><div class="Departs_On">${train_no} | ${departs_on} </div>${train_type}</div> 
+              <div class="Time_in_card"> ${starting_time} <div class="Distance">${total_time_taken} <br>${distance}</div> ${ending_time}</div>
+           </div>
+              <div class="train_Classes">${Train_class}</div>
+           </div>`;
+  return a;
+} 
