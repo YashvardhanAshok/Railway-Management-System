@@ -33,9 +33,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const saveButton = document.getElementById("saveButton");
 
     saveButton.addEventListener("click", function() {
-        const url = window.location.href;
-        const queryString = url.split('?')[1];
-        const valuesArray = queryString.split('&');
         if (
             document.getElementById("firstname").value !== "" &&
             document.getElementById("lastname").value !== "" &&
@@ -43,6 +40,62 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("phone").value !== "" &&
             document.getElementById("aadhar_no").value !== ""
         ) {
+            // For d_browsers
+            function disableScroll(event) {
+                event.preventDefault();
+            }
+            document.addEventListener('wheel', disableScroll, { passive: false });
+
+            const BLURE = document.querySelector('.BLURE');
+            const box_pay_card = document.querySelector('.box_pay_card');
+            const box1 = document.querySelector('.box1');
+            const nav = document.querySelector('.nav');
+            
+            BLURE.classList.add('active');
+            box_pay_card.classList.add('active');
+            box1.classList.add('active');
+            nav.classList.add('active');
+        }
+        else{
+            
+            alert("PLEASE FILL ALL OF THE DETAILS");
+    }
+
+    });
+
+    const saveButton_card = document.getElementById("saveButton_card");
+    saveButton_card.addEventListener("click", function() {
+        // c_a_file
+        function saveToFile(data) {
+            const blob = new Blob([data], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "data.txt";
+            a.click();
+
+            // Clean up
+            URL.revokeObjectURL(url);
+        }
+
+        const url = window.location.href;
+        const queryString = url.split('?')[1];
+        const valuesArray = queryString.split('&');
+        if (
+            document.getElementById("name").value !== "" &&
+            document.getElementById("cardnumber").value !== "" &&
+            document.getElementById("expirationdate").value !== "" &&
+            document.getElementById("securitycode").value !== "" &&
+            document.getElementById("aadhar_no").value !== ""
+        ) {
+            // card info
+            valuesArray.push(document.getElementById("name").value); 
+            valuesArray.push(document.getElementById("cardnumber").value); 
+            valuesArray.push(document.getElementById("expirationdate").value); 
+            valuesArray.push(document.getElementById("securitycode").value); 
+            valuesArray.push(document.getElementById("aadhar_no").value); 
+            // info
             valuesArray.push(document.getElementById("firstname").value); 
             valuesArray.push(document.getElementById("lastname").value); 
             valuesArray.push(document.getElementById("email").value); 
@@ -60,23 +113,14 @@ document.addEventListener("DOMContentLoaded", function() {
             
             alert("PLEASE FILL ALL OF THE DETAILS");
     }
-        // console.log(valuesArray);
 
     });
 
-    function saveToFile(data) {
-        const blob = new Blob([data], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "data.txt";
-        a.click();
-
-        // Clean up
-        URL.revokeObjectURL(url);
-    }
+    
 });
+
+
+
 
 
 
@@ -426,6 +470,11 @@ window.onload = function () {
     securitycode.addEventListener('focus', function () {
         document.querySelector('.creditcard').classList.add('flipped');
     });
+    // stop scrolling
+
+
+
+
     };
 
 

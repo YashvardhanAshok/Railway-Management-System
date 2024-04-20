@@ -1338,7 +1338,7 @@ color: white;
   max-width: 400px;
   padding: 20px;
   
-  color: #ffffff;
+  color: #000000;
 }
 
 label {
@@ -1394,7 +1394,7 @@ input {
 .creditcard svg#cardback {
   width: 100%;
   -webkit-box-shadow: 1px 5px 6px 0px black;
-  box-shadow: 1px 5px 6px 0px black;
+  box-shadow: 1px 5px 16px 1px rgba(0, 0, 0, 0.498);
   border-radius: 22px;
 }
 
@@ -1639,32 +1639,57 @@ input {
 
 
 
-.box1,.nav{
+.box1.active,.nav.active{
+  transition: 0.5s ease-in-out;
     filter: blur(10px);
   }
+.BLURE.active{
+  transition: 0.5s ease-in-out;
+
+background-color: #000000bd;
+position: absolute;
+top: 0;
+
+width: 100vw;
+height: 100vh;
+z-index: 1;
+}
 
 .box_pay_card{
+  display: none;
+  transition: 0.5s ease-in-out;
+
+}
+.box_pay_card.active{
+  display: block;
   position: absolute;
   top: 0;
-  background-color: #000000bd;
-  /* filter: blur(10px); */
+  
   width: 100vw;
-  height: 100vh;
-  z-index: 1;
+  height: 600px;
+  z-index: 2;
+  transform: translate(-50%,-50%);
+  top:50%;
+  left: 50%;
+  background-color:rgba(255, 255, 255, 0.806);
+
 
   display: flex;
   justify-content: left;
+
+
   
 }
 
 .payment-title{
-  position:absolute;
-  transform: translate(-50%,-50%);
-  top:25%;
-  left: 50%;
+  position:relative;
+  /* transform: translate(-50%,-50%); */
+  /* top:10%; */
+  /* left: 50%; */
   font-size: 30px;
   font-weight: bolder;
-  color: white;
+  color: rgb(0, 0, 0);
+  text-shadow:black 1px 1px 1px;
 }
 
 .container{
@@ -1681,5 +1706,185 @@ input {
   left: 63%;
 }
 .form-container input{
-  color: #000;
+  color: #000000;
 }
+
+
+
+.pay_now_card{
+  transform: translate(-50%,-50%);
+  left: 50%;
+  top: 85%;
+
+  position: absolute;
+  border-radius: 10px;
+  background-color: #0077b5;
+  text-align: center;
+  height: 60px;
+  color: #fff;
+  width: 400px;
+  margin: auto;
+display: flex;
+overflow: hidden;
+
+font-size: 26px;
+font-weight: bolder;
+}
+
+.pay_now_inside_card{
+
+  width: 100%;  
+align-self: center;
+transition: 0.3s ease-in-out;
+top: 0;
+padding: 7.5px 0;
+}
+
+
+.pay_now_inside_card::after{
+content: "Let's go";
+width: 100%;
+left: -100%;
+position: absolute;
+background-color: #034708;
+font-weight: bolder;
+width: 100%;
+top: 0;
+padding: 7.5px 0;
+}
+
+.pay_now_card:hover .pay_now_inside_card{
+  transform: translatex(100%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* invoice */
+.boddys{
+  position: absolute;
+  background-color: white;
+  border: solid black 1px;
+  padding: 20px 0;
+  z-index: 4;
+  top: 0;
+  transform: translate(-50%,-50%);
+  left: 50%;
+  top: 50%;
+  border-radius: 20px;
+  width: 40%;
+}
+.HEAD{
+  display: flex;
+  justify-content: space-between;
+    width: 95%;
+    margin: auto;
+  }
+  
+  
+  .HEAD  .RailX_card_heading_text{
+    justify-content: center;
+    align-self: center;
+    position: relative;
+    text-align: right;
+    top:0;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .HEAD  .RailX_card_heading{
+    font-size: 65px;
+  
+    font-weight: bolder;
+    text-shadow:1px 1px 0px black,1px 1px 20px rgba(0, 0, 0, 0.163);
+  }
+  
+  footer{
+    width: 100%;
+    text-align: center;
+  }
+  .name_of_buyer{
+    width: 95%;
+    font-size:30px ;
+    margin:0 auto;
+    font-weight: bolder;
+    padding: 20px 0;
+  }
+  .name_of_buyer p{
+    font-weight: normal;
+    font-size:18px ;
+    padding: 0;
+    /* line-height: 1; */
+    padding-left: 10px;
+    width:100%;
+  }
+
+  .bar_of_line{
+    height: 1px;
+    width: 95%;
+    margin: auto;
+    background-color: #0000007d;
+  }
+  
+
+  .pament_de{
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin: auto;
+  }
+
+  .Payment_Date{
+    text-align: right;
+  }
+
+  .name_of_buyer{
+    width: 95%;
+    font-size:30px ;
+    margin:0 auto;
+    font-weight: bolder;
+    padding: 20px 0;
+  }
+  .name_of_buyer p{
+    font-weight: normal;
+    font-size:18px ;
+    padding: 0;
+    line-height: 0;
+    padding-left: 10px;
+  }
+
+
+  .boddys table{
+    font-size: normal;
+    font-weight: 100;
+    text-align: center;
+    border: 0;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .green2{
+    font-size: 25px;
+    font-weight: bolder;
+  }
+
+  .green{
+    font-size: 25px;
+    font-weight: bolder;
+    color: green;
+  }
