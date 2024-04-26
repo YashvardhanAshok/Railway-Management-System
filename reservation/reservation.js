@@ -110,7 +110,6 @@ function change_date(selectedDate,pointer_add) {
 
 document.querySelectorAll('.date_inside_layout').forEach(input => {
     input.addEventListener('click', function() {
-        console.log(this.value);
         var currentDate = new Date(); // Get current date
         var currentYear = currentDate.getFullYear(); // Get current year
         
@@ -247,7 +246,7 @@ button.addEventListener("click", function() {
 
 
 
-// train random
+// train_data_random
 function trin_detil() {
 
     // waek
@@ -282,7 +281,6 @@ function trin_detil() {
         const index = daysOfWeek.indexOf(departs_on_befor[i]);
         array_for_weeek_index.push(index);
     }
-    console.log(array_for_weeek_index);
     const w_array_1=["S","M","T","W","T","F","S"];
     const w_array_2=["<b>S</B>","<b>M</B>","<b>T</B>","<b>W</B>","<b>T</B>","<b>F</B>","<b>S</B>"];
 
@@ -369,17 +367,11 @@ function trin_detil() {
           ["Executive Chair Car", 3500],
           ["Chair Car", 2500]
       ],
-      "Palace on Wheels": [
-          ["Luxury Tourist Train", 10000]
-      ],
       "Deccan Odyssey": [
           ["Luxury Tourist Train", 12000]
       ],
       "Golden Chariot": [
           ["Luxury Tourist Train", 9000]
-      ],
-      "Maharajas' Express": [
-          ["Luxury Tourist Train", 15000]
       ],
       "Himalayan Queen": [
           ["Chair Car", 800]
@@ -461,15 +453,101 @@ function Search(){
 // #region map
 const radioButtons = document.querySelectorAll('input[type="radio"]');
 const booking_card_option = document.querySelector('.booking_card_option');
+const remove_file = document.querySelector('.remove_file');
+
 radioButtons.forEach(radioButton => {
     radioButton.addEventListener('change', function() {
         if (this.checked) {
-          if (this.value=="option1") {booking_card_option.classList.remove('remove');}
-          if (this.value=="option2") {booking_card_option.classList.add('remove');}
-          if (this.value=="option3") {booking_card_option.classList.add('remove');}
+          if (this.value=="option1") {booking_card_option.classList.remove('remove');remove_file.classList.remove('remove');}
+          if (this.value=="option2") {
+            booking_card_option.classList.add('remove');
+            remove_file.classList.add('remove');
+        
+            
+
+            
+            
+            
+            
+            
+
+            
+        
+        
+        
+        
+        }
+          // if (this.value=="option3") {booking_card_option.classList.add('remove');}
         }
     });
 });
+
+
+// pnr
+function processDigits() {
+  const digits = document.getElementById('digitsInput').value;
+
+
+  const filePath = '../data_base/user_data.json';
+
+  fetch(filePath)
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+      return response.json();
+  })
+  .then(jsonData => {
+
+
+
+    if (digits==jsonData.PNR_Number) {
+        const reservationDetailsDiv_str=`
+        <b>firstname:</b> ${jsonData.firstname} ${jsonData.lastname} <br>
+        <b>email:</b> ${jsonData.email}  <br>
+        <b>phone:</b> ${jsonData.phone}  <br>
+        <b>Train Name:</b> ${jsonData.Train_Name} <br>
+        <b>Departure Station:</b> ${jsonData.Departure_Station} <br>
+        <b>Arrival Station:</b> ${jsonData.Arrival-Station} <br>
+        <b>Duration:</b> ${jsonData.Duration} 
+
+        <!--<b>PNR Number:</b> ${jsonData.PNR_Number} <br>-->
+
+        `
+        document.getElementById("reservationDetails").innerHTML = reservationDetailsDiv_str;
+
+    }
+  
+  
+  
+    })
+  .catch(error => {
+      console.error('Error fetching the file:', error);
+  });
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // #region remove
@@ -507,7 +585,6 @@ function demo() {
       const index = daysOfWeek.indexOf(departs_on_befor[i]);
       array_for_weeek_index.push(index);
   }
-  console.log(array_for_weeek_index);
   const w_array_1=["S","M","T","W","T","F","S"];
   const w_array_2=["<b>S</B>","<b>M</B>","<b>T</B>","<b>W</B>","<b>T</B>","<b>F</B>","<b>S</B>"];
 
@@ -694,7 +771,6 @@ function demo() {
       const index = daysOfWeek.indexOf(departs_on_befor[i]);
       array_for_weeek_index.push(index);
   }
-  console.log(array_for_weeek_index);
   const w_array_1=["S","M","T","W","T","F","S"];
   const w_array_2=["<b>S</B>","<b>M</B>","<b>T</B>","<b>W</B>","<b>T</B>","<b>F</B>","<b>S</B>"];
 

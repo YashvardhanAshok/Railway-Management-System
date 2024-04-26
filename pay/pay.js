@@ -72,16 +72,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const a = document.createElement("a");
             a.href = url;
-            a.download = "data.txt";
+            a.download = "invoce.html";
             a.click();
 
             // Clean up
             URL.revokeObjectURL(url);
         }
 
-        const url = window.location.href;
-        const queryString = url.split('?')[1];
-        const valuesArray = queryString.split('&');
         if (
             document.getElementById("name").value !== "" &&
             document.getElementById("cardnumber").value !== "" &&
@@ -89,6 +86,138 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("securitycode").value !== "" &&
             document.getElementById("aadhar_no").value !== ""
         ) {
+
+            
+            const boddys = document.querySelector('.boddys');
+            const box_pay_card = document.querySelector('.box_pay_card');
+            box_pay_card.classList.remove('active');
+            boddys.classList.add('active');
+
+            const RrandomNumber = Math.floor(1000000000 + Math.random() * 9000000000);
+
+    
+            const url = window.location.href;
+            const queryString = url.split('?')[1];
+            const valuesArray = queryString.split('&');
+            for (let i = 0; i < valuesArray.length; i++) {
+                valuesArray[i] = valuesArray[i].replace(/%20/g, ' ');
+            }
+        
+            const formattedDate = (new Date()).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+            const randomNumber = Math.floor(100000 + Math.random() * 900000);
+        
+            const Invoice_html_str=`
+            <div class="HEAD">
+                <div class="RailX_card_heading">RailX</div>
+                <div class="RailX_card_heading_text">Train Ticket Booking <br> IRCTC Authorized e-ticketing</div>
+            </div>
+            <div class="bar_of_line"></div>    
+            <div class="name_of_buyer">
+                Hi ${document.getElementById("firstname").value},
+                <p>This is the receipt for a payment of RS. ${parseFloat(valuesArray[12].replace("Rs. ", "")) + (parseFloat(valuesArray[12].replace("Rs. ", "")) * 0.18) + 40 + 40 + 250} you made to Railx.</p>
+            </div>
+        
+            <div class="bar_of_line"></div>    
+                
+            <div class="pament_de">
+                <div class="Payment_No">
+                    PNR Number:<br>
+                    Train Name:<br>
+                    Departure Station:<br>
+                    Arrival Station:<br>
+                    Departure Time: <br>
+                    Arrival Time: <br>
+                    Duration: <br>
+                    Distance: 
+                </div>
+                <div class="Payment_Date">
+                    <b>${RrandomNumber}</b><br>
+                    <b>${valuesArray[6]}</b><br>
+                    <b>${valuesArray[0]}, ${valuesArray[1]}</b> <br>
+                    <b>${valuesArray[2]}, ${valuesArray[3]}</b> <br>
+                    <b>${valuesArray[7]}</b><br>
+                    <b>${valuesArray[10]}</b><br>
+                    <b>${valuesArray[8]}</b><br>
+                    <b>${valuesArray[9]}</b><br>
+                </div>    
+            </div>
+        
+        
+            <div class="bar_of_line"></div>    
+        
+            <div class="pament_de">
+                <div class="Payment_No">
+                    Payment No.<br><b>#${randomNumber}</b>
+                </div>
+                <div class="Payment_Date">
+                    Payment Date<br>
+                    <b>
+                    ${formattedDate}
+                    
+                    </b>
+                </div>    
+            </div>
+        
+            <div class="bar_of_line"></div>  
+            
+        
+            <div class="pament_de">
+                <div class="Payment_No">
+                    Base fare per adult	<br>
+                    Dynamic fare	<br>
+                    Tax-18%	<br>
+                    Reservation charge<br>	
+                    Superfast charge	<br>
+                    <b>Total Price per adult</b>
+                </div>
+                <div class="Payment_Date">
+                    RS. ${valuesArray[12]}<br>f
+                    RS. 238<br>
+                    RS.  ${parseFloat(valuesArray[12].replace("Rs. ", "")) * 0.18}<br>
+                    RS. 40<br>
+                    RS. 40<br>
+                    <b>RS. ${parseFloat(valuesArray[12].replace("Rs. ", "")) + (parseFloat(valuesArray[12].replace("Rs. ", "")) * 0.18) + 40 + 40 + 250}</b>
+                </div>    
+            </div>
+        
+            <div class="bar_of_line"></div>  
+        
+        
+            <div class="pament_de">
+                <div class="green2">
+                    Total
+                </div>
+                <div class="green">
+                    RS. ${parseFloat(valuesArray[12].replace("Rs. ", "")) + (parseFloat(valuesArray[12].replace("Rs. ", "")) * 0.18) + 40 + 40 + 250}
+                </div>    
+            </div>
+        
+            <div class="bar_of_line"></div> 
+            <!--${document.getElementById("firstname").value}, ${document.getElementById("lastname").value}, ${document.getElementById("phone").value}, ${document.getElementById("email").value} -->
+             `
+            document.getElementById('boddys_id').innerHTML = Invoice_html_str;
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             // card info
             valuesArray.push(document.getElementById("name").value); 
             valuesArray.push(document.getElementById("cardnumber").value); 
@@ -105,8 +234,156 @@ document.addEventListener("DOMContentLoaded", function() {
             const random10DigitNumber = Math.floor(Math.random() * 9000000000) + 1000000000;
 
             valuesArray.push(random10DigitNumber);
-            const data =valuesArray;
-            saveToFile(data);
+
+
+            const html_str =  `
+                                
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <style>
+                            
+
+                            .boddys{
+                            
+                                transition: 0.5s ease-in-out;
+                                position: absolute;
+                                background-color: white;
+                                border: solid black 1px;
+                                padding: 20px 0;
+                                z-index: 4;
+                                top: 0;
+                                transform: translate(-50%,-50%);
+                                left: 50%;
+                                top: 50%;
+                                border-radius: 20px;
+                                width: 40%;
+                            }
+                            .HEAD{
+                                display: flex;
+                                justify-content: space-between;
+                                width: 95%;
+                                margin: auto;
+                                }
+                                
+                                
+                                .HEAD  .RailX_card_heading_text{
+                                    width: 50%;
+                                    justify-content: center;
+                                    align-self: center;
+                                    position: relative;
+                                    text-align: right;
+                                    top:0;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                
+                                .HEAD  .RailX_card_heading{
+                                font-size: 65px;
+                                
+                                font-weight: bolder;
+                                text-shadow:1px 1px 0px black,1px 1px 20px rgba(0, 0, 0, 0.163);
+                                }
+                                
+                                footer{
+                                width: 100%;
+                                text-align: center;
+                                }
+                                .name_of_buyer{
+                                width: 95%;
+                                font-size:30px ;
+                                margin:0 auto;
+                                font-weight: bolder;
+                                padding: 20px 0;
+                                }
+                                .name_of_buyer p{
+                                font-weight: normal;
+                                font-size:18px ;
+                                padding: 0;
+                                /* line-height: 1; */
+                                padding-left: 10px;
+                                width:100%;
+                                }
+                            
+                                .bar_of_line{
+                                height: 1px;
+                                width: 95%;
+                                margin: auto;
+                                background-color: #0000007d;
+                                }
+                                
+                            
+                                .pament_de{
+                                width: 95%;
+                                display: flex;
+                                justify-content: space-between;
+                                padding: 20px 0;
+                                margin: auto;
+                                }
+                                .Payment_No{
+                                    width: 50%;    
+                                }
+                                .Payment_Date{
+                                text-align: right;
+                                width: 50%;
+                                }
+                            
+                                .name_of_buyer{
+                                width: 95%;
+                                font-size:30px ;
+                                margin:0 auto;
+                                font-weight: bolder;
+                                padding: 20px 0;
+                                }
+                                .name_of_buyer p{
+                                font-weight: normal;
+                                font-size:18px ;
+                                padding: 0;
+                                line-height: 0;
+                                padding-left: 10px;
+                                }
+                            
+                            
+                                .boddys table{
+                                font-size: normal;
+                                font-weight: 100;
+                                text-align: center;
+                                border: 0;
+                                margin: auto;
+                                display: flex;
+                                
+                                justify-content: space-between;
+                                }
+                            
+                                .green2{
+                                width: 50%;
+                                font-size: 25px;
+                                font-weight: bolder;
+                                }
+                            
+                                .green{
+                                width: 50%;
+                                font-size: 25px;
+                                font-weight: bolder;
+                                color: green;
+                                text-align: right;
+                                }
+                            
+
+
+                        </style>
+                        <title>invoce</title>
+                    </head>
+                    <body>
+                        <div id="boddys_id" class="boddys">
+                            ${Invoice_html_str}
+                        </div>
+                    </body>
+                    </html>
+            
+            
+            `  
+            saveToFile(html_str);
 
         }
         else{
@@ -118,10 +395,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     
 });
-
-
-
-
 
 
 
@@ -478,4 +751,9 @@ window.onload = function () {
     };
 
 
-    
+
+
+
+
+
+     

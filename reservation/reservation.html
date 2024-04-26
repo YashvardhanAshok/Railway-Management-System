@@ -105,10 +105,10 @@
             <label for="option1" >Book Train Tickets</label>
 
             <input type="radio" id="option2" name="option" value="option2">
-            <label for="option2" > Check PNR Status</label>
-
+            <label for="option2" > Check Status</label>
+<!-- 
             <input type="radio" id="option3" name="option" value="option3">
-            <label for="option3" >Live Train Status</label>
+            <label for="option3" >Live Train Status</label> -->
 
 
         </div>
@@ -158,7 +158,22 @@
         
         </div>
 
+        <div class="remove_file">
+            <div class="pnrbox">
+                <label for="digitsInput">PNR :</label><br>
+                <input type="text" id="digitsInput" maxlength="10">
+                <!-- <button onclick="processDigits()">Search</button> -->
+                
+                <div class="but_option_CU" id="but_option_CU_id" onclick="processDigits()">
+                    <div class="but_option_CU_box" onclick="processDigits()">Search</div> 
+                </div>
+            </div>
 
+            <div id="reservationDetails">
+
+            </div>
+        </div>
+        <!-- 6293111743 -->
     </div>
 
 </div>

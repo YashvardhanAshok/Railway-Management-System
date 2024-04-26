@@ -1409,3 +1409,137 @@ font-size: 20px;
 color: #BC1823;
 }
 
+
+
+
+/* remove */
+.remove_file{
+  display: none;
+  width: 90%;
+  margin:10px auto;
+
+
+
+
+}
+
+.remove_file label{
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.remove_file.remove{
+  display: block;
+}
+
+
+
+
+/* digitsInput *//* digitsInput *//* digitsInput */
+/* digitsInput *//* digitsInput *//* digitsInput */
+
+
+
+.remove_file label{
+  font-size: 34px;
+  text-align: center;
+  width: 100px;
+  align-self: center;
+  align-items: center;
+  padding-top: 10px;
+  height: 135px;
+}
+
+#digitsInput{
+ width: 130px;
+ border-radius: 20px;
+border: 1px rgba(0, 0, 0, 0.457) solid;
+text-align: center;
+width: 250px;
+height: 75px;
+font-size: 32px;
+
+transition: 0.2s ease-in-out;
+
+}
+
+#digitsInput:hover{
+  background-color: #d0e5f152;
+
+}
+
+.remove_file button{
+  border-radius: 7px;
+  border: 1px rgba(0, 0, 0, 0.457) solid;
+  background-color: #d0e5f1d2;
+  padding: 10px;
+  width: 100px;
+}
+
+.pnrbox{
+  display: flex;
+  margin: 20px 0;
+}
+
+
+.remove_file .but_option_CU{
+  position: relative;
+  width: 150px;
+  height: 75px;
+
+  font-size: 32px;
+
+  background-color:rgba(0, 0, 0, 0.888);
+  color: white;
+
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 900;
+  overflow: hidden;
+  margin-left: 10px;
+}
+.remove_file .but_option_CU_box{
+position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-top: 13px;
+  transition: 0.2s ease-in-out;
+}
+
+.remove_file .but_option_CU_box::after{
+  content:"let's go";
+  top: 0px;
+  left: -150px;
+
+  background-color: green;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-top: 13px;
+  animation: background_color_change 2s infinite; 
+
+}
+
+@keyframes background_color_change {
+  0% {background-color: green;}
+  50%{background-color: rgba(3, 218, 3, 0.76);}
+  0% {background-color: green;}
+}
+
+
+.but_option_CU:hover .but_option_CU_box{
+  transform: translatex(150px);
+}
+
+#reservationDetails{
+  margin-top:-66px;
+  margin-bottom:-30px;
+  background-color: #00000011;
+  border-radius: 10px;
+  padding: 20px;
+
+}
+
+.booking_card, .box1,#reservationDetails{
+  transition: 0.2s ease-in-out;
+}
