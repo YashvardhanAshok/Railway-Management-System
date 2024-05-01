@@ -356,6 +356,9 @@ font-weight: bold;
   z-index: 1;
   transition: 0.8s ease-in-out;
   opacity: 7;
+  overflow: hidden;
+  border:1PX  solid rgba(0, 0, 0, 0.992);
+  box-shadow:0px 10px 20px 20px rgba(0, 0, 0, 0.237) ;
 }
 
 
@@ -364,13 +367,29 @@ font-weight: bold;
   transition: 0.8s ease-in-out;
   opacity: 1;
 
+  background-size: cover; /* Cover the entire div */
+  background-position: center; 
+
+  background-image: url('./img/pexels-axp-photography-500641970-19149614.jpg'); /* Specify the path to your image */
+}
+
+.card_element1.active{
+  background-image: url('./img/pexels-aditya-bhatia-264152318-19793576.jpg'); /* Specify the path to your image */
+  filter: blur(0.5px);
+
+}
+.card_element3.active{
+  background-image: url('./img/pexels-mohamedelaminemsiouri-2245436.jpg'); /* Specify the path to your image */
+  background-position-x:-120px; 
+  filter: blur(1px);
+
 }
 
 .card_element3,.card_element2{
   height: 750px;
   background-color: #0000006d; 
- z-index: 0;
- left: 92%;
+  z-index: 0;
+  left: 92%;
 }
  
  .card_element3{left: 8%;}
@@ -386,6 +405,23 @@ font-weight: bold;
   animation: dandu 4.5s infinite linear ;
 }
 
+.card_element1::before,.card_element2::before,.card_element3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.152); /* Black overlay with 50% opacity */
+}
+
+.card_element2.active , .card_element3.active {
+
+opacity: 0.9;
+}
+.card_element2::before,.card_element3::before {
+  background-color: rgba(0, 0, 0, 0.674); /* Black overlay with 50% opacity */
+}
 
 @keyframes uandd {
   0%{top:51%;}
@@ -403,19 +439,7 @@ font-weight: bold;
 
 
 
-.card_element2:hover{
- left: 82%;
- height: 850px;
-  background-color: #262626;
-  transition: 0.3s ease-in-out;
-  
-}
-.card_element3:hover{
-  left: 18%;
-  height: 850px;
-   background-color: #262626;
-   transition: 0.3s ease-in-out;
-  }
+
 
 
 .explore{
@@ -1048,3 +1072,45 @@ color: #BC1823;
     justify-content: left;
     transform: scale(0.8);
   }
+
+
+.text_in_card{
+  width: 100%;
+  text-align: center;
+  font-size: 90px;
+  font-weight: bolder;
+  color: white;
+  bottom: 0;
+  position: absolute;
+  padding: 70px 0;
+  background-color: #00000098;
+}
+
+
+
+  /* box3 */ /* box3 */ /* box3 */
+  /* box3 */ /* box3 */ /* box3 */
+.box3{
+  background-color:#e3e3e3;
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+  padding:30px 50px;
+}
+
+.box3 b{
+  font-size: 22px;
+}
+
+  .p1,.p2,.p3 {
+    margin: 0;
+padding: 0;
+    width: 30%;
+  } 
+
+  .p1 p,.p2 p,.p3 p{
+    margin-top: 10px;
+    width: 100%;
+
+    padding: 0;
+  } 
