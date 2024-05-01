@@ -22,7 +22,7 @@ There are moving animation, some element may look out of place.
 <img src="doc/3.png" width="100%">
 </p>
 
-<h2>RESERCATION</h2>
+<h2>RESERVATION</h2>
 <img src="doc/full2.png" width="100%">
 <p> 
 
