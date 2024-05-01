@@ -127,7 +127,7 @@ while a:
             smtp_server = 'smtp.gmail.com'
             smtp_port = 587
             sender_email = 'tenderhunter01@gmail.com'
-            sender_password = 'tsysgpxvpryjbied'  
+            sender_password = 'your_pass'  
             receiver_email = email_value
             subject = 'RAILWAY-MANAGEMENT-SYSTEM'
             message = file
